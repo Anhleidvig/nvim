@@ -3,11 +3,20 @@ return {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
         dependencies = { "nvim-lua/plenary.nvim" },
-
-        config = function()
+        init = function()
             local harpoon = require("harpoon")
 
-            harpoon:setup()
+            harpoon:setup({
+                global_settings = {
+                    save_on_toggle = true,
+                    save_on_change = true,
+                    mark_branch = true,
+                    -- enable tabline with harpoon marks
+                    tabline = false,
+                    tabline_prefix = "   ",
+                    tabline_suffix = "   ",
+                },
+            })
 
             vim.keymap.set("n", "<Tab>a", function() harpoon:list():append() end, {
                 desc = "Append current buffer to Harpoon list",

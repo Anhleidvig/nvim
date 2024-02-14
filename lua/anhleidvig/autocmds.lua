@@ -134,15 +134,35 @@ autocmd("BufWritePre", {
 autocmd('LspAttach', {
   group = augroup("lsp_keybindings", { clear = true }),
   callback = function(e)
-    local opts = { buffer = e.buf }
-
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, { buffer = e.buf, desc = "Hover" })
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { buffer = e.buf, desc = "Go to definition" })
-    vim.keymap.set("n", "gD", function() vim.lsp.buf.implementation() end, { buffer = e.buf, desc = "Go to implementation" })
-    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, { buffer = e.buf, desc = "Code action" })
-    vim.keymap.set("n", "<leader>cr", function() vim.lsp.buf.references() end, {  buffer = e.buf, desc = "References" })
-    vim.keymap.set('n', '<leader>cf', vim.lsp.buf.format, { buffer = e.buf, desc = "Format code" })
-    vim.keymap.set("n", "<leader>cn", function() vim.lsp.buf.rename() end, { buffer = e.buf, desc = "Rename" })
+    vim.keymap.set({"v", "n"}, "<leader>cl", "<cmd>LspInfo<cr>", { desc = "References" })
+    vim.keymap.set("n", "gd", function()
+        require("telescope.builtin").lsp_definitions({ reuse_win = true })
+    end, { desc = "Goto Definition" })
+    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { desc = "References" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+    vim.keymap.set("n", "gI", function()
+        require("telescope.builtin").lsp_implementations({ reuse_win = true })
+    end, { desc = "Goto Implementation" })
+    vim.keymap.set("n", "gy", function()
+        require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
+    end, { desc = "Goto T[y]pe Definition" })
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+    vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+    vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
+    vim.keymap.set({"v", "n"}, "<leader>ca", function()
+        vim.lsp.buf.code_action()
+    end, { desc = "Code Actions" })
+    vim.keymap.set({"v", "n"}, "<leader>cA", function()
+        vim.lsp.buf.code_action({
+            context = {
+                only = { "source" },
+                diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
+            },
+        })
+    end, { desc = "Source Actions" })
+    vim.keymap.set({"n", "v"}, "<leader>crn", function()
+        vim.lsp.buf.rename()
+    end, { desc = "Rename" })
   end,
 })
 

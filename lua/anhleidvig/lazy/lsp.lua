@@ -29,8 +29,19 @@ return {
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
-                    "rust_analyzer",
                     "tsserver",
+                    "jsonls",
+                    "html",
+                    "cssls",
+                    "yamlls",
+                    "bashls",
+                    "dockerls",
+                    "tailwindcss",
+                    "eslint",
+                    "phpactor",
+                    "intelephense",
+                    "psalm",
+                    "phpcs",
                 },
                 handlers = {
                     function(server_name) -- default handler (optional)
@@ -70,6 +81,10 @@ return {
                 sources = cmp.config.sources({
                     { name = 'nvim_lsp' },
                     { name = 'luasnip' }, -- For luasnip users.
+                    { name = 'buffer' },
+                    { name = 'path' },
+                    { name = 'cmdline' },
+                    { name = 'mason' },
                 }, {
                     { name = 'buffer' },
                 })
@@ -95,17 +110,21 @@ return {
         "stevearc/conform.nvim",
         keys = {
             {
-            -- Customize or remove this keymap to your liking
-            "<leader>f",
-            function()
-                require("conform").format({ async = true, lsp_fallback = true })
-            end,
-            mode = "n",
-            desc = "Format buffer",
+                -- Customize or remove this keymap to your liking
+                "<leader>f",
+                function()
+                    require("conform").format({ async = true, lsp_fallback = true })
+                end,
+                mode = "n",
+                desc = "Format buffer",
             },
         },
         -- Everything in opts will be passed to setup()
         opts = {
+            -- configure lsp code actions for importing missing modules
+            import_on_completion = {
+                enable = true,
+            },
             -- Define your formatters
             formatters_by_ft = {
                 lua = { "stylua", "lua-format", "luafmt", "lua", "luaformatter" },

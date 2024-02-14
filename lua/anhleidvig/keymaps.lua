@@ -1,3 +1,5 @@
+local opts = { noremap = true, silent = true }
+
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Escape" })
 vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Ex mode" })
@@ -10,9 +12,24 @@ vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { d
 -- Yaning to clipboard
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
+-- Do things without affecting the registers
+vim.keymap.set("n", "x", '"_x')
+vim.keymap.set("n", "<Leader>p", '"0p')
+vim.keymap.set("n", "<Leader>P", '"0P')
+vim.keymap.set("v", "<Leader>p", '"0p')
+vim.keymap.set("n", "<Leader>c", '"_c')
+vim.keymap.set("n", "<Leader>C", '"_C')
+vim.keymap.set("v", "<Leader>c", '"_c')
+vim.keymap.set("v", "<Leader>C", '"_C')
+vim.keymap.set("n", "<Leader>d", '"_d')
+vim.keymap.set("n", "<Leader>D", '"_D')
+vim.keymap.set("v", "<Leader>d", '"_d')
+vim.keymap.set("v", "<Leader>D", '"_D')
+-- Select all
+vim.keymap.set("n", "<C-a>", "gg<S-v>G")
 
 -- Terminals
--- open lazygit in terminal 
+-- open lazygit in terminal
 vim.keymap.set("n", "<leader>gg", ":LazyGit<CR>", { desc = "Open lazygit" })
 -- Terminal Mappings
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -29,11 +46,18 @@ vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decreas
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 -- terminal delete and stop insert mode with leader space wd
 vim.keymap.set("n", "<leader>wd", "<C-\\><C-n>:q<CR>", { desc = "Terminal delete and stop insert mode" })
+-- Split window
+vim.keymap.set("n", "<leader>w_", ":split<Return>", opts)
+vim.keymap.set("n", "<leader>w|", ":vsplit<Return>", opts)
 
 vim.keymap.set('n', '<space>cd', vim.diagnostic.open_float, { desc = "Open diagnostic float" })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 vim.keymap.set('n', '<space>cq', vim.diagnostic.setloclist, { desc = "Set loclist" })
+
+-- Disable continuations
+vim.keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
+vim.keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
 
 -- Add undo break-points
 vim.keymap.set("i", ",", ",<c-g>u")
