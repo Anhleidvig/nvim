@@ -1,4 +1,5 @@
 return {
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
@@ -43,4 +44,34 @@ return {
 
         vim.treesitter.language.register("templ", "templ")
     end
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufRead",
+    enabled = true,
+    opts = { mode = "cursor", max_lines = 3 },
+    keys = {
+      {
+        "<leader>ut",
+        function()
+          local Util = require("lazyvim.util")
+          local tsc = require("treesitter-context")
+          tsc.toggle()
+          if Util.inject.get_upvalue(tsc.toggle, "enabled") then
+            Util.info("Enabled Treesitter Context", { title = "Option" })
+          else
+            Util.warn("Disabled Treesitter Context", { title = "Option" })
+          end
+        end,
+        desc = "Toggle Treesitter Context",
+      },
+    },
+  },
+
+  -- Automatically add closing tags for HTML and JSX
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    opts = {},
+  }
 }
