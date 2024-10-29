@@ -1,0 +1,9 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+root = true
+
+# Lua files
+[*.lua]
+indent_style = tab
+tab_width = 4
+
