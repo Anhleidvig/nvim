@@ -1,14 +1,11 @@
 # nvim
-This is a change from the test branch.
+This is a change from the test branch 2.
 
-Diff 1.
+This is a change from the test branch 3.
 
-Diff 2.
+This is a change from the test branch 4.
 
-Diff 3.
+This is a change from the test branch 5.
 
-Diff 4.
+This is a change from the test branch 6.
 
-Diff 5.
-
-Diff 6.
