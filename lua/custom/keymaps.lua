@@ -5,6 +5,10 @@
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>gi', { noremap = true, silent = true })
+vim.keymap.set('v', '<C-s>', '<Esc>:w<CR>gv', { noremap = true, silent = true })
+
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
@@ -25,13 +29,16 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
+-- Split window
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
--- LSP keymaps
--- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format the current buffer" })
+-- Resize window
+vim.keymap.set("n", "<C-left>", "<C-w><")
+vim.keymap.set("n", "<C-right>", "<C-w>>")
+vim.keymap.set("n", "<C-up>", "<C-w>+")
+vim.keymap.set("n", "<C-down>", "<C-w>-")
 
 -- Explore
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Explore" })
@@ -41,3 +48,8 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+vim.keymap.set("n", "x", '"_x')
+
+-- Select all
+vim.keymap.set("n", "<C-a>", "gg<S-v>G")
+

@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
+vim.g.netrw_followlinks = 0
 --  For more options, you can see `:help option-list`
 vim.opt.number = true
 vim.opt.relativenumber = true

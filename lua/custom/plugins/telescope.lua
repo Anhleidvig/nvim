@@ -53,7 +53,17 @@ return { -- Fuzzy Finder (files, lsp, etc)
 			--     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
 			--   },
 			-- },
-			-- pickers = {}
+			pickers = {
+				find_files = {
+					find_command = {
+						"rg",
+						"--files",
+						"--hidden",
+						"--no-ignore",
+						"--no-follow",
+					},
+				},
+			},
 			extensions = {
 				["ui-select"] = {
 					require("telescope.themes").get_dropdown(),
