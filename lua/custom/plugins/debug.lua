@@ -50,6 +50,25 @@ return {
 		local dap = require("dap")
 		local dapui = require("dapui")
 
+		-- get project path ./.vscoide/launch.json config and read it to the dap config
+		-- so every launch.json is unique to the project
+		local project_path = vim.fn.getcwd() .. "/.vscode/launch.json"
+
+		if vim.fn.filereadable(project_path) == 1 then
+			local file = io.open(project_path, "r")
+			if file then
+				local content = file:read("*a")
+				file:close()
+				local config = vim.fn.json_decode(content)
+				if config and config.configurations then
+					for _, cfg in ipairs(config.configurations) do
+						dap.configurations[cfg.type] = dap.configurations[cfg.type] or {}
+						table.insert(dap.configurations[cfg.type], 0, cfg)
+					end
+				end
+			end
+		end
+
 		require("mason-nvim-dap").setup({
 			-- Makes a best effort to setup the various debuggers with
 			-- reasonable debug configurations
