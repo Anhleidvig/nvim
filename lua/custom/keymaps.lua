@@ -53,3 +53,7 @@ vim.keymap.set("n", "x", '"_x')
 -- Select all
 vim.keymap.set("n", "<C-a>", "gg<S-v>G")
 
+vim.keymap.set('n', '<leader>tc', function()
+  vim.g.copilot_enabled = not vim.g.copilot_enabled
+  print(vim.g.copilot_enabled and "Copilot enabled" or "Copilot disabled")
+end, { noremap = true, silent = false, desc = "[T]oggle GitHub [C]opilot" })

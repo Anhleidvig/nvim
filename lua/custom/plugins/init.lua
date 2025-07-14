@@ -1,6 +1,11 @@
 return {
-	"github/copilot.vim",
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+	{
+		"github/copilot.vim",
+		init = function()
+			vim.g.copilot_enabled = true
+		end,
+	},
 	{
 		"numToStr/Comment.nvim",
 		config = function()
